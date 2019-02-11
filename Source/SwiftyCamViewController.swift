@@ -162,6 +162,10 @@ open class SwiftyCamViewController: UIViewController {
     /// Setting to true will prompt user for access to microphone on View Controller launch.
     public var audioEnabled                   = true
 
+
+    /// Set video mirror for front camera
+    public var frontCameraMirrored            = true
+
     /// Sets whether or not app should display prompt to app settings if audio/video permission is denied
     /// If set to false, delegate function will be called to handle exception
     public var shouldPrompToAppSettings       = true
@@ -521,9 +525,9 @@ open class SwiftyCamViewController: UIViewController {
 				let movieFileOutputConnection = self.movieFileOutput?.connection(with: AVMediaType.video)
 
 
-				//flip video output if front facing camera is selected
+				// Set isVideoMirrored if front facing camera is selected
 				if self.currentCamera == .front {
-					movieFileOutputConnection?.isVideoMirrored = true
+					movieFileOutputConnection?.isVideoMirrored = self.frontCameraMirrored
 				}
 
 				movieFileOutputConnection?.videoOrientation = self.orientation.getVideoOrientation() ?? previewOrientation
